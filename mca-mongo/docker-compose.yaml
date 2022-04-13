@@ -1,0 +1,21 @@
+version: "3"
+name: "mca-mongo"
+services:
+  client:
+    image: node:12.18.4
+    ports:
+      - 8080:8080
+    volumes:
+      - type: bind
+        src: .mca-client
+        dst: /code
+    working_dir: /code
+    command: bash -c "npm install && npm run dev"
+  api:
+    image: node:12.18.4
+    ports: -3000:3000
+  db:
+    image: mongo:latest
+volumes:
+# We don't need networks for this task but if you have mutiple containers you may want to use networks
+# networks:
